@@ -1,0 +1,26 @@
+{
+  "name": "solcjs-compare",
+  "version": "1.0.0",
+  "description": "Compare bytecode produced by SolcJS compiler and the bytecode stored at RSK Testnet",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "npx hardhat run scripts/deploy.js",
+    "compare": "npx hardhat run scripts/compare.js"
+  },
+  "keywords": ["solidity", "rsk", "bytecode", "solc", "solcjs"],
+  "author": "Aleksandr Shenshin",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+    "eslint": "^8.22.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "hardhat": "^2.10.2",
+    "prettier": "^2.7.1"
+  },
+  "dependencies": {
+    "solc": "^0.8.9"
+  }
+}
