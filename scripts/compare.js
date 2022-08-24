@@ -10,34 +10,55 @@ async function main() {
       resolve(__dirname, '..', 'contracts', 'Demo.sol'),
       'utf8',
     );
-    // extracting hardhat compiler params
-    const { settings } = hre.config.solidity.compilers[0];
-    // inserting the params to compiler input
+
+    // solidity compiler input parameters
     const input = {
       language: 'Solidity',
-      settings,
+      settings: {
+        optimizer: { enabled: true, runs: 0 },
+        evmVersion: 'london',
+        outputSelection: {
+          '*': {
+            '*': [
+              'abi',
+              'evm.bytecode',
+              'evm.deployedBytecode',
+              'evm.methodIdentifiers',
+              'metadata',
+            ],
+            '': ['ast'],
+          },
+        },
+      },
       sources: {
         'Demo.sol': {
           content: demoSolidity,
         },
       },
     };
-    // compile the smart contract with SolcJS using hardhat parameters
+
+    // compile the smart contract with SolcJS
     const output = JSON.parse(solc.compile(JSON.stringify(input)));
     const demoOutput = output.contracts['Demo.sol'].Demo;
-    const [deployer] = await hre.ethers.getSigners();
+
     // deploying to RSK using the bytecode gererated by SolcJS (not Hardhat!!!)
+    const [deployer] = await hre.ethers.getSigners();
     const ContractFactory = hre.ethers.ContractFactory.fromSolidity(
       demoOutput,
       deployer,
     );
     const demoSC = await ContractFactory.deploy();
     await demoSC.deployed();
+    console.log(
+      `Deployed to ${hre.network.name} with address ${demoSC.address}`,
+    );
+
     // read bytecode from RSK Testnet
     const rskByteCode = (
       await hre.ethers.provider.getCode(demoSC.address)
     ).substring(2);
 
+    // compare RSK and Solc bytecodes
     const solcDeployedBytecode = demoOutput.evm.deployedBytecode.object;
     console.log(`SolcJS version: ${solc.version()}`);
     console.log(`RSK Testnet bytecode lenght: ${rskByteCode.length}`);
@@ -46,7 +67,7 @@ async function main() {
     );
     console.log(
       solcDeployedBytecode === rskByteCode
-        ? `Bytecodes are equal`
+        ? `Bytecodes are identical`
         : `Bytecodes are different`,
     );
   } catch (error) {

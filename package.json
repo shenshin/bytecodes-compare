@@ -4,10 +4,15 @@
   "description": "Compare bytecode produced by SolcJS compiler and the bytecode stored at RSK Testnet",
   "main": "index.js",
   "scripts": {
-    "deploy": "npx hardhat run scripts/deploy.js",
     "compare": "npx hardhat run scripts/compare.js"
   },
-  "keywords": ["solidity", "rsk", "bytecode", "solc", "solcjs"],
+  "keywords": [
+    "solidity",
+    "rsk",
+    "bytecode",
+    "solc",
+    "solcjs"
+  ],
   "author": "Aleksandr Shenshin",
   "license": "ISC",
   "devDependencies": {
@@ -21,6 +26,6 @@
     "prettier": "^2.7.1"
   },
   "dependencies": {
-    "solc": "^0.8.9"
+    "solc": "^0.8.7-fixed"
   }
 }

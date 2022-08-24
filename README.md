@@ -12,8 +12,7 @@ Rename `template.secret.json` to `.secret.json` and paste your seed phrase for g
 npm install
 ```
 
-
-## Compile, Deploy and Compare bytecodes
+## Compile smart contract, Deploy to RSK and Compare bytecodes
 ```shell
-npx hardhat run scripts/compare.js
+npm run compare
 ```
