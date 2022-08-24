@@ -12,12 +12,8 @@ Rename `template.secret.json` to `.secret.json` and paste your seed phrase for g
 npm install
 ```
 
-## Deploy to RSK Testnet
-```shell
-npx hardhat run scripts/deploy.js
-```
 
-## Compare bytecodes
+## Compile, Deploy and Compare bytecodes
 ```shell
 npx hardhat run scripts/compare.js
 ```
